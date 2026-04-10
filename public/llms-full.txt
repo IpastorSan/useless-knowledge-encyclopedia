@@ -1,0 +1,47 @@
+# Useless Knowledge Encyclopedia - Full Content Index
+
+> An encyclopedia-style blog covering science, mathematics, AI, humanities, psychology, art, and philosophy.
+> Author: Ignacio Pastor Sanchez
+> Mission: "pugnatio contra putredinem cerebri" - Fighting against brainrot through active learning.
+
+## Site Structure
+
+- / - Homepage with recent articles, knowledge graph preview, and category links
+- /blog - Full article listing with search and filtering by category and tags
+- /blog/[slug] - Individual article pages with related articles and mini knowledge graph
+- /graph - Full interactive knowledge graph visualization
+- /about - About the encyclopedia and author
+- /feed.xml - RSS 2.0 feed
+- /sitemap.xml - XML sitemap
+
+## Articles
+
+### The Double Slit Experiment: When Particles Get Stage Fright
+- URL: /blog/the-double-slit-experiment
+- Category: Physics
+- Tags: quantum-mechanics, wave-particle-duality, experiments
+- Summary: How looking at something changes its behavior, and why that's deeply weird. A beginner-friendly exploration of wave-particle duality.
+
+### What Is Entropy, Really?
+- URL: /blog/what-is-entropy
+- Category: Science
+- Tags: thermodynamics, entropy, physics, information-theory
+- Summary: It's not just 'disorder' - a deep dive into entropy across thermodynamics, statistical mechanics, and information theory.
+
+### Neural Networks from Scratch: The Surprisingly Simple Math
+- URL: /blog/neural-networks-from-scratch
+- Category: AI
+- Tags: neural-networks, machine-learning, mathematics, backpropagation
+- Summary: Gradient descent is just walking downhill, and backprop is just the chain rule. Building intuition for neural networks from first principles.
+
+## Topics & Categories
+
+Categories: Science, Physics, Mathematics, AI, Humanities, Psychology, Art, Philosophy
+
+## Content Philosophy
+
+Each essay aims to:
+1. Take a complex topic and make it genuinely understandable
+2. Maintain scientific/intellectual rigor while being approachable
+3. Use humor and analogies to make ideas stick
+4. Connect ideas across disciplines via the knowledge graph

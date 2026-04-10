@@ -1,0 +1,27 @@
+# Useless Knowledge Encyclopedia
+
+> An encyclopedia-style blog covering science, mathematics, AI, humanities, psychology, art, and philosophy.
+> Author: Ignacio Pastor Sanchez
+> Mission: "pugnatio contra putredinem cerebri" - Fighting against brainrot through active learning.
+
+## Content Structure
+
+- /blog - All articles listing with search and category filtering
+- /blog/[slug] - Individual articles (essays)
+- /graph - Interactive knowledge graph showing article relationships
+- /about - About the project and author
+- /feed.xml - RSS feed
+- /sitemap.xml - Sitemap
+
+## Topics Covered
+
+- Science & Physics (quantum mechanics, thermodynamics, experiments)
+- Mathematics (pure math, applied math, proofs)
+- Artificial Intelligence (neural networks, machine learning, NLP)
+- Humanities & Philosophy (ethics, epistemology, history of ideas)
+- Psychology (cognitive science, behavioral psychology)
+- Art (art history, creative process, aesthetics)
+
+## Content Format
+
+Articles are long-form essays written in an accessible, slightly humorous tone. Each essay explores a topic in depth, aiming for both rigor and readability. Articles are interconnected via a knowledge graph that visualizes relationships between ideas.

@@ -1,65 +1,137 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ArticleCard } from "@/components/ArticleCard";
+import { KnowledgeGraph } from "@/components/KnowledgeGraph";
+import { getArticles } from "@/lib/articles";
+import { buildGraphData } from "@/lib/graph";
+import { CATEGORY_COLORS } from "@/lib/utils";
+import { ArticleCategory } from "@/lib/interfaces";
 
-export default function Home() {
+export default async function HomePage() {
+  const recentArticles = await getArticles(6);
+  const graphData = await buildGraphData();
+
+  const categories = Object.entries(CATEGORY_COLORS) as [
+    ArticleCategory,
+    string,
+  ][];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div>
+      {/* Hero */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.95_0.03_65)_0%,transparent_70%)]" />
+        <div className="container mx-auto px-4 text-center relative">
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 rounded-full border-2 border-primary bg-primary/5 flex items-center justify-center">
+              <BookOpen className="h-10 w-10 text-primary" />
+            </div>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4 tracking-tight">
+            Useless Knowledge
+            <br />
+            <span className="text-primary">Encyclopedia</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-lg text-muted-foreground italic mb-2">
+            &ldquo;Pugnatio contra putredinem cerebri&rdquo;
           </p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Fighting against brainrot &mdash; one essay at a time
+          </p>
+
+          <div className="flex justify-center mb-8">
+            <div className="w-16 h-0.5 bg-accent rounded-full" />
+          </div>
+
+          <div className="flex justify-center gap-3">
+            <Button asChild size="lg">
+              <Link href="/blog">
+                Read Articles
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/graph">Explore the Graph</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Recent Articles */}
+      {recentArticles.length > 0 && (
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-heading font-bold">
+                Recent Essays
+              </h2>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/blog">
+                  View all <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recentArticles.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Knowledge Graph Preview */}
+      {graphData.nodes.length > 0 && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-heading font-bold mb-2">
+                Knowledge Graph
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                How the ideas connect. Click a node to read the article.
+              </p>
+            </div>
+            <div className="border rounded-xl overflow-hidden bg-card">
+              <KnowledgeGraph graphData={graphData} height={350} mini />
+            </div>
+            <div className="text-center mt-4">
+              <Button asChild variant="outline" size="sm">
+                <Link href="/graph">Open full graph</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Categories */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-heading font-bold mb-6 text-center">
+            Browse by Category
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map(([category, color]) => (
+              <Link key={category} href={`/blog?category=${category}`}>
+                <Badge
+                  variant="outline"
+                  className="text-sm py-1.5 px-4 cursor-pointer transition-colors hover:opacity-80"
+                  style={{
+                    borderColor: color,
+                    color: color,
+                  }}
+                >
+                  {category}
+                </Badge>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }
